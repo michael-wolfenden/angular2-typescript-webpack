@@ -1,24 +1,29 @@
-'use strict';
-
 var config = require('../configuration');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var webpackOptions = {
+
     entry: [
         'webpack/hot/dev-server',
         config.paths.entryFile
     ],
+
     output: {
         filename: 'bundle.js'
     },
+
+    resolve: {
+        extensions: ['', '.ts', '.webpack.js', '.web.js', '.js']
+    },
+
     module: {
         loaders: [{
-            test: /\.js$/,
-            exclude: [config.paths.nodeModulesDir],
-            loader: 'babel?optional[]=es7.decorators!eslint'
+            test: /\.ts$/,
+            loader: 'awesome-typescript-loader'
         }]
     },
+
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
