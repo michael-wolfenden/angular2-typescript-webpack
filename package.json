@@ -5,15 +5,17 @@
   "main": "webpack.config.js",
   "devDependencies": {
     "awesome-typescript-loader": "^0.13.1",
+    "chunk-manifest-webpack-plugin": "0.0.1",
     "html-webpack-plugin": "^1.6.1",
     "open-url": "^2.0.2",
+    "replace": "^0.3.0",
     "rimraf": "^2.4.3",
     "typescript": "^1.5.3",
     "webpack": "^1.12.1",
     "webpack-dev-server": "^1.10.1"
   },
   "scripts": {
-    "initialize": "npm install && tsd install",
+    "initialize": "tsd install && npm install",
     "preproduction": "rimraf build",
     "production": "webpack --config webpack/webpack.production.config.js --progress --colors",
     "prestart": "open-url http://localhost:8080/index.html",

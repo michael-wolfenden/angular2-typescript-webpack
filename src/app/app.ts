@@ -3,15 +3,15 @@
 import {Component, View} from 'angular2/angular2';
 
 @Component({
-  selector: 'app'
+    selector: 'app'
 })
 @View({
-  template: '<h1>Hello {{ name }}</h1>'
+    template: '<h1>Hello {{ name }}</h1>'
 })
 export class App {
-  name: string;
-  constructor() {
-    let test = 'aaaa';
-    this.name = `Yo, ${test}!`;
-  }
+    name: string;
+    constructor() {
+        var greeting = "world";
+        this.name = `Hello ${greeting}!`;
+    }
 }

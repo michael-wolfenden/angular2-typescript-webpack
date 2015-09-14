@@ -14,7 +14,7 @@ var webpackOptions = {
     },
 
     resolve: {
-        extensions: ['', '.ts', '.webpack.js', '.web.js', '.js']
+        extensions: ['', '.ts', '.js']
     },
 
     module: {

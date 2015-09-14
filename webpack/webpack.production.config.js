@@ -1,7 +1,11 @@
 var webpack = require('webpack');
+var path = require('path');
+var fs = require('fs');
+var rimraf = require('rimraf');
+var replace = require("replace");
 var config = require('../configuration');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+var ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 
 var webpackOptions = {
 
@@ -11,12 +15,12 @@ var webpackOptions = {
     },
 
     output: {
-        filename: 'assets/js/app-[chunkhash:6].js',
+        filename: 'assets/js/[name]-[chunkhash:6].js',
         path: config.paths.buildDir
     },
 
     resolve: {
-        extensions: ['', '.ts', '.webpack.js', '.web.js', '.js']
+        extensions: ['', '.ts', '.js']
     },
 
     devtool: 'source-map',
@@ -29,16 +33,51 @@ var webpackOptions = {
     },
 
     plugins: [
-        new CommonsChunkPlugin(
-            'vendor',
-            'assets/js/vendor-[chunkhash:6].js'
-        ),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: Infinity
+        }),
+
+        new ChunkManifestPlugin({
+            filename: 'chunk-manifest.json',
+            manifestVariable: 'webpackManifest'
+        }),
+
+        new webpack.optimize.DedupePlugin(),
+
+        new webpack.optimize.OccurenceOrderPlugin(),
+
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            output: {
+                comments: false
+            }
+        }),
 
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: config.paths.index,
             inject: true
-        })
+        }),
+
+        function () {
+            this.plugin('done', function (stats) {
+                var manifestPath = path.join(config.paths.buildDir, 'chunk-manifest.json');
+                var indexPath = path.join(config.paths.buildDir, 'index.html');
+
+                replace({
+                    regex: 'WEBPACK_MANIFEST_TEMPLATE',
+                    replacement: fs.readFileSync(manifestPath, 'utf8'),
+                    paths: [indexPath],
+                    recursive: false,
+                    silent: true,
+                });
+
+                fs.unlinkSync(manifestPath);
+            });
+        }
     ]
 };
 

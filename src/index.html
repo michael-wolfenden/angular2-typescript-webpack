@@ -4,8 +4,11 @@
 </head>
 <body>
     <app></app>
-    {% if (o.htmlWebpackPlugin.options.devServer) { %}
-    <script src="{%=o.htmlWebpackPlugin.options.devServer%}"></script>
-    {% } %}
+
+{% if (o.htmlWebpackPlugin.options.devServer) { %}
+<script src="{%=o.htmlWebpackPlugin.options.devServer%}"></script>
+{% } else { %}
+<script>window.webpackManifest = WEBPACK_MANIFEST_TEMPLATE;</script>
+{% } %}
 </body>
 </html>

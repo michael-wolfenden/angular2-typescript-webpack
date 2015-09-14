@@ -9,7 +9,7 @@ var appDir = path.join(srcDir, 'app');
 var entryFile = path.join(appDir, 'bootstrap.ts');
 var index = path.join(srcDir, 'index.html');
 
-var exports = {
+var configuration = {
 
     paths: {
         nodeModulesDir: nodeModulesDir,
@@ -24,4 +24,4 @@ var exports = {
     ]
 };
 
-module.exports = exports;
+module.exports = configuration;
