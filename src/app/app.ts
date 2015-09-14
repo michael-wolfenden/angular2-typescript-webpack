@@ -11,7 +11,7 @@ import {Component, View} from 'angular2/angular2';
 export class App {
     name: string;
     constructor() {
-        var greeting = "world";
+        let greeting: string = 'world';
         this.name = `Hello ${greeting}!`;
     }
 }

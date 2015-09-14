@@ -18,6 +18,11 @@ var webpackOptions = {
     },
 
     module: {
+        preLoaders: [{
+            test: /\.ts$/,
+            loader: 'tslint'
+        }],
+
         loaders: [{
             test: /\.ts$/,
             loader: 'awesome-typescript-loader'

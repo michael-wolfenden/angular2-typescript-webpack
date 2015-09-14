@@ -26,6 +26,11 @@ var webpackOptions = {
     devtool: 'source-map',
 
     module: {
+        preLoaders: [{
+            test: /\.ts$/,
+            loader: 'tslint?failOnHint=true'
+        }],
+
         loaders: [{
             test: /\.ts$/,
             loader: 'awesome-typescript-loader'
@@ -66,6 +71,8 @@ var webpackOptions = {
             this.plugin('done', function (stats) {
                 var manifestPath = path.join(config.paths.buildDir, 'chunk-manifest.json');
                 var indexPath = path.join(config.paths.buildDir, 'index.html');
+
+                if (!fs.existsSync(manifestPath)) return;
 
                 replace({
                     regex: 'WEBPACK_MANIFEST_TEMPLATE',
