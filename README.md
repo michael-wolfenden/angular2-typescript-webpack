@@ -6,7 +6,7 @@ Sample of using webpack to build a sample angular2 / typescript application
 
 [TSD](https://github.com/DefinitelyTyped/tsd) is a package manager to search and install TypeScript definitions and is used by this project.
 
-It is assumed that the tsd has been installed globally
+It is assumed that tsd has been installed globally
 
     > npm install tsd -g
 
